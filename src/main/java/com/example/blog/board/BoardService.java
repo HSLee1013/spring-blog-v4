@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 // 책임: 비즈니스 로직 처리(트랙잭션 관리), DTO 생성
 @RequiredArgsConstructor
@@ -20,11 +19,6 @@ public class BoardService {
         Board board = boardRepository.findById(id).orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : " + id));
         board.update(updateDTO.getTitle(), updateDTO.getContent());
         // 객체상태변경 - update + commit => 더티체킹
-    }
-
-    public BoardResponse.UpdateFormDTO 게시글수정화면보기(int id) {
-        Board board = boardRepository.findById(id).orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : " + id));
-        return new BoardResponse.UpdateFormDTO(board);
     }
 
     @Transactional

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 // 책임: 외부 클라이언트의 요청을 받고 응답
+@CrossOrigin
 @RequiredArgsConstructor // final이 붙은 필드를 매개변수로 받는 생성자를 만들어준다.
 @RestController
 public class BoardController {

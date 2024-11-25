@@ -19,7 +19,7 @@ public class BoardRequest {
     }
 
     @Data
-    public class UpdateDTO {
+    public static class UpdateDTO {
         @NotBlank
         private String title;
         @NotBlank

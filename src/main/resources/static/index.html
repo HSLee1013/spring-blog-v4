@@ -9,169 +9,25 @@
 
 <body>
 
-    <nav>
-        <ul>
-            <li>
-                <a href="javascript:void(0);" onclick="renderList()">홈</a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" onclick="renderSaveForm()">글쓰기</a>
-            </li>
-        </ul>
-    </nav>
+<nav>
+    <ul>
+        <li>
+            <a href="javascript:void(0);" onclick="renderList()">홈</a>
+        </li>
+        <li>
+            <a href="javascript:void(0);" onclick="renderSaveForm()">글쓰기</a>
+        </li>
+    </ul>
+</nav>
 
-    <hr>
+<hr>
 
-    <section id="root">
+<section id="root">
 
-    </section>
-
-    <script>
-        // init
-        let root = document.querySelector("#root");
-        renderList();
-
-        // list 디자인
-        function renderList() {
-            clear();
-            let dom = `
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="list-box">
-                        
-                    </tbody>
-                </table>
-             `;
-            root.innerHTML = dom;
-            sendList();
-        }
-
-        function renderListItem(board) {
-            let dom = `            
-                <td>${board.id}</td>
-                <td>${board.title}</td>
-                <td><a href="javascript:void(0);" onclick="renderDetail(${board.id})">상세보기</a></td>            
-            `;
-            let item = document.createElement("tr");
-            item.innerHTML = dom;
-            return item;
-        }
-
-        async function sendList() {
-            // 1. API 요청
-            let response = await fetch("http://localhost:8080/api/board");
-            let responseBody = await response.json();
-
-            // 2. 응답 처리
-            let boards = responseBody.body;
-
-            let listBox = document.querySelector("#list-box");
-            boards.forEach(board => {
-                let item = renderListItem(board);
-                listBox.append(item);
-            });
-        }
-
-        // detail 디자인
-        async function renderDetail(id) {
-            clear();
-            let board = await sendDetail(id);
-            let dom = `
-        <form>
-            <button type="button" onclick="sendDelete(${board.id});">삭제</button>
-        </form>
-        <form>
-            <button type="button" onclick="renderUpdateForm(${board.id});">수정</button>
-        </form>
-        <div>
-            번호: ${board.id}<br>
-            제목: ${board.title}<br>
-            내용: ${board.content}<br>
-            작성일: ${board.createdAt}<br>
-        </div>
-    `
-            root.innerHTML = dom;
-        }
-
-        async function sendDetail(id) {
-            // 1. API 요청
-            let response = await fetch(`http://localhost:8080/api/board/${id}`);
-            let responseBody = await response.json();
-            
-            // 2. 응답 처리
-            return responseBody.body;
-        }
-
-        // saveForm 디자인
-        function renderSaveForm() {
-            clear();
-            let dom = `
-                <form>
-                    <input type="text" id="title" placeholder="제목"><br>
-                    <input type="text" id="content" placeholder="내용"><br>
-                    <button type="button" onclick="sendSave();">글쓰기</button>
-                </form>
-            `;
-            root.innerHTML = dom;
-        }
-
-        function sendSave() {
-            // 1. 사용자 입력값 받기
-
-            // 2. JSON 변환
-
-            // 3. API 요청
-
-            // 4. 응답 처리
-        }
-
-        function sendDelete() {
-            // 1. 사용자 입력값 받기
-
-            // 2. JSON 변환
-
-            // 3. API 요청
-
-            // 4. 응답 처리
-        }
-
-        function sendUpdate() {
-            // 1. 사용자 입력값 받기
-
-            // 2. JSON 변환
-
-            // 3. API 요청
-
-            // 4. 응답 처리
-        }
-
-        // updateForm 디자인
-        function renderUpdateForm() {
-            clear();
-            let dom = `
-                <form>
-                    <input type="number" value="1" readonly><br>
-                    <input type="text" id="title" placeholder="제목" value="제목1"><br>
-                    <input type="text" id="content" placeholder="내용" value="내용1"><br>
-                    <input type="text" value="2024.11.22" readonly><br>
-                    <button type="button" onclick="sendUpdate();">수정</button>
-                </form>
-            `
-            root.innerHTML = dom;
-        }
-
-        // 화면 초기화
-        function clear() {
-            root.innerHTML = "";
-        }
-    </script>
-
+</section>
+<script src="js/rendering.js"></script>
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
 </body>
 
 </html>

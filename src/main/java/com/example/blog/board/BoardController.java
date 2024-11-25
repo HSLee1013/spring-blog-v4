@@ -33,6 +33,7 @@ public class BoardController {
 
     @PutMapping("/api/board/{id}")
     public Resp<?> update(@PathVariable Integer id, @Valid @RequestBody BoardRequest.UpdateDTO updateDTO, Errors errors) {
+        System.out.println(updateDTO.toString());
         boardService.게시글수정(id, updateDTO);
         return Resp.ok(null);
     }
